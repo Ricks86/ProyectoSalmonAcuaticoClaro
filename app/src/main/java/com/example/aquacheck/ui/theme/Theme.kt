@@ -1,58 +1,43 @@
 package com.example.aquacheck.ui.theme
 
-import android.app.Activity
-import android.os.Build
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+/**
+ * Esquema de colores oscuro de AquaCheck.
+ *
+ * La app está diseñada exclusivamente en modo oscuro para mejorar la legibilidad
+ * en entornos de trabajo al aire libre y bajo condiciones de poca luz (noche, interior de bodegas).
+ * No se provee un esquema de luz alternativo en el MVP.
+ */
+private val AquaCheckColorScheme = darkColorScheme(
+    primary          = AquaOrange,
+    onPrimary        = AquaOnOrange,
+    secondary        = AquaNavy,
+    onSecondary      = AquaOnDark,
+    background       = AquaBackground,
+    onBackground     = AquaOnDark,
+    surface          = AquaSurface,
+    onSurface        = AquaOnDark,
+    surfaceVariant   = AquaSurfaceVariant,
+    onSurfaceVariant = AquaOnDarkSecondary,
+    error            = AquaDanger,
+    onError          = Color.White,
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
-)
-
+/**
+ * Tema principal de la app AquaCheck.
+ *
+ * Envuelve el contenido en el esquema de colores oscuro de la marca.
+ * Debe usarse como nodo raíz en [MainActivity] y en todos los `@Preview`.
+ */
 @Composable
-fun AquaCheckTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
-) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
-
+fun AquaCheckTheme(content: @Composable () -> Unit) {
     MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
+        colorScheme = AquaCheckColorScheme,
+        typography  = Typography,
+        content     = content
     )
 }
